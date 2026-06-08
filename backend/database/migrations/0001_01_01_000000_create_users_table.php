@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('trips', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->unsignedBigInteger('created_by');
+            $table->decimal('total_amount', 10, 2)->default(0);
+            $table->date('trip_date')->nullable();
+
+            // IMPORTANT FIX
+            $table->json('members')->nullable();
+
             $table->timestamps();
         });
 

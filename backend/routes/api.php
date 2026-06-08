@@ -11,3 +11,4 @@ Route::get('/expenses/{trip_id}', [ExpenseController::class, 'index']);
 Route::post('/expenses', [ExpenseController::class, 'store']);
 Route::delete('/trips/{id}', [TripController::class, 'destroy']);
 Route::put('/trips/{id}', [TripController::class, 'update']);
+Route::get('/trips/{id}', [TripController::class, 'show']);
