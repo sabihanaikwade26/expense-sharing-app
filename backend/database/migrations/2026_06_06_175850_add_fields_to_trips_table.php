@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('trips', function (Blueprint $table) {
-            $table->decimal('total_amount', 10, 2)->default(0);
+            // $table->decimal('total_amount', 10, 2)->default(0);
             $table->date('trip_date')->nullable();
             $table->json('members')->nullable();
         });
