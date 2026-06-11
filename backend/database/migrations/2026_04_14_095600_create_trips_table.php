@@ -10,23 +10,24 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
+{
+    if (!Schema::hasTable('trips')) {
         Schema::create('trips', function (Blueprint $table) {
-        $table->id();
-        $table->string('name');
+            $table->id();
+            $table->string('name');
 
-        $table->foreignId('created_by')
-            ->constrained('users')
-            ->onDelete('cascade');
+            $table->foreignId('created_by')
+                ->constrained('users')
+                ->onDelete('cascade');
 
-        // ✅ ADD THESE MISSING COLUMNS
-        $table->decimal('total_amount', 10, 2)->default(0);
-        $table->date('trip_date')->nullable();
-        $table->json('members')->nullable();
+            $table->decimal('total_amount', 10, 2)->default(0);
+            $table->date('trip_date')->nullable();
+            $table->json('members')->nullable();
 
-        $table->timestamps();
-    });
+            $table->timestamps();
+        });
     }
+}
 
     /**
      * Reverse the migrations.

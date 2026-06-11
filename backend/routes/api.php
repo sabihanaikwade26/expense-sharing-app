@@ -14,3 +14,4 @@ Route::delete('/trips/{id}', [TripController::class, 'destroy']);
 Route::put('/trips/{id}', [TripController::class, 'update']);
 Route::get('/trips/{id}', [TripController::class, 'show']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
