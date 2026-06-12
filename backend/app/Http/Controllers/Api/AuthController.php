@@ -14,26 +14,32 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller {
-    public function login( Request $request ) {
-        $request->validate( [
+    public function login(Request $request)
+    {
+        $request->validate([
             'email' => 'required|email',
             'password' => 'required'
-        ] );
+        ]);
 
-        if ( !Auth::attempt( $request->only( 'email', 'password' ) ) ) {
-            return response()->json( [
+        if (!Auth::attempt($request->only('email', 'password'))) {
+            return response()->json([
                 'message' => 'Invalid credentials'
-            ], 401 );
+            ], 401);
         }
 
         $user = Auth::user();
 
-        $token = $user->createToken( 'auth_token' )->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json( [
+        return response()->json([
             'token' => $token,
-            'user' => $user
-        ] );
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->role   // ✅ IMPORTANT ADD THIS
+            ]
+        ]);
     }
 
     public function register( Request $request ) {
@@ -47,7 +53,7 @@ class AuthController extends Controller {
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make( $request->password ),
-            // 'role' => 'user'
+            'role' => 'user'
         ] );
 
         return response()->json( [
@@ -85,12 +91,13 @@ class AuthController extends Controller {
         ]);
     }
 
-    public function resetPassword( Request $request ) {
-        $request->validate( [
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
             'email' => 'required|email',
             'token' => 'required',
             'password' => 'required|min:6|confirmed'
-        ] );
+        ]);
 
         $record = DB::table('password_reset_tokens')
             ->where('email', $request->email)
@@ -102,18 +109,24 @@ class AuthController extends Controller {
             ], 400);
         }
 
-        $user = User::where( 'email', $request->email )->first();
+        $user = User::where('email', $record->email)->first();
 
-        $user->update( [
-            'password' => Hash::make( $request->password )
-        ] );
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found'
+            ], 404);
+        }
 
-        DB::table( 'password_reset_tokens' )
-        ->where( 'email', $request->email )
-        ->delete();
+        $user->update([
+            'password' => Hash::make($request->password)
+        ]);
 
-        return response()->json( [
+        DB::table('password_reset_tokens')
+            ->where('email', $request->email)
+            ->delete();
+
+        return response()->json([
             'message' => 'Password reset successful'
-        ] );
+        ]);
     }
 }
