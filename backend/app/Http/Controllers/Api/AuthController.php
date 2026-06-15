@@ -74,7 +74,7 @@ class AuthController extends Controller {
             ['email' => $request->email],
             [
                 'email' => $request->email,
-                'token' => bcrypt($token),
+                'token' => hash('sha256', $token),
                 'created_at' => Carbon::now()
             ]
         );
@@ -103,13 +103,13 @@ class AuthController extends Controller {
             ->where('email', $request->email)
             ->first();
 
-        if (!$record || !Hash::check($request->token, $record->token)) {
+        if (!$record || hash('sha256', $request->token) !== $record->token) {
             return response()->json([
                 'message' => 'Invalid or expired token'
             ], 400);
         }
 
-        $user = User::where('email', $record->email)->first();
+        $user = User::where('email', $request->email)->first();
 
         if (!$user) {
             return response()->json([

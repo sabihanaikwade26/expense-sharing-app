@@ -7,26 +7,24 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Admin\UserController;
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
 
-Route::get('/trips', [TripController::class, 'index']);
-Route::post('/trips', [TripController::class, 'store']);
-
-Route::get('/expenses/{trip_id}', [ExpenseController::class, 'index']);
-Route::post('/expenses', [ExpenseController::class, 'store']);
-
-Route::delete('/trips/{id}', [TripController::class, 'destroy']);
-Route::put('/trips/{id}', [TripController::class, 'update']);
-Route::get('/trips/{id}', [TripController::class, 'show']);
+/*
+|--------------------------------------------------------------------------
+| PUBLIC ROUTES (NO AUTH)
+|--------------------------------------------------------------------------
+*/
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
-Route::middleware(['auth:sanctum'])->group(function () {
+/*
+|--------------------------------------------------------------------------
+| PROTECTED ROUTES (AUTH REQUIRED)
+|--------------------------------------------------------------------------
+*/
 
-    // ADMIN
-    Route::get('/admin/users', [UserController::class, 'index']);
-    Route::get('/admin/stats', [AdminDashboardController::class, 'stats']);
+Route::middleware(['auth:sanctum'])->group(function () {
 
     // TRIPS
     Route::get('/trips', [TripController::class, 'index']);
@@ -38,4 +36,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/my-trips', [TripController::class, 'myTrips']);
     Route::post('/trips/{id}/members', [TripController::class, 'addMembers']);
 
+    // EXPENSES
+    Route::get('/expenses/{trip_id}', [ExpenseController::class, 'index']);
+    Route::post('/expenses', [ExpenseController::class, 'store']);
+
+    // ADMIN
+    Route::get('/admin/users', [UserController::class, 'index']);
+    Route::get('/admin/stats', [AdminDashboardController::class, 'stats']);
 });
