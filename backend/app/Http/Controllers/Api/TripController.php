@@ -11,8 +11,7 @@ class TripController extends Controller {
     // GET all trips
 
     public function index() {
-        return Trip::latest()->get();
-        // ❌ remove withCount
+        return Trip::with( [ 'creator', 'members' ] )->latest()->get();
     }
 
     // CREATE trip
@@ -27,7 +26,7 @@ class TripController extends Controller {
 
         $trip = Trip::create( [
             'name' => $request->name,
-            'created_by' => 1,
+            'created_by' => auth()->id(),
             'total_amount' => $request->total_amount ?? 0,
             'trip_date' => $request->trip_date,
             'members' => $request->members ?? []
@@ -37,12 +36,10 @@ class TripController extends Controller {
     }
 
     public function show( $id ) {
-        $trip = Trip::find( $id );
+        $trip = Trip::with( [ 'creator', 'members' ] )->find( $id );
 
         if ( !$trip ) {
-            return response()->json( [
-                'message' => 'Trip not found'
-            ], 404 );
+            return response()->json( [ 'message' => 'Trip not found' ], 404 );
         }
 
         return response()->json( $trip );
@@ -85,6 +82,27 @@ class TripController extends Controller {
 
         return response()->json( [
             'message' => 'Trip deleted successfully'
+        ] );
+    }
+
+    public function myTrips() {
+        return Trip::with( 'creator' )
+        ->where( 'created_by', auth()->id() )
+        ->latest()
+        ->get();
+    }
+
+    public function addMembers( Request $request, $id ) {
+        $trip = Trip::findOrFail( $id );
+
+        $request->validate( [
+            'user_ids' => 'required|array'
+        ] );
+
+        $trip->members()->syncWithoutDetaching( $request->user_ids );
+
+        return response()->json( [
+            'message' => 'Members added successfully'
         ] );
     }
 }
