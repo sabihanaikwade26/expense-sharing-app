@@ -36,13 +36,13 @@ class TripController extends Controller {
     }
 
     public function show( $id ) {
-        $trip = Trip::with( [ 'creator', 'members' ] )->find( $id );
+        $trip = Trip::with( [ 'creator' ] )->find( $id );
 
         if ( !$trip ) {
             return response()->json( [ 'message' => 'Trip not found' ], 404 );
         }
 
-        return response()->json( $trip );
+        return response()->json( $trips );
     }
 
     // UPDATE trip
