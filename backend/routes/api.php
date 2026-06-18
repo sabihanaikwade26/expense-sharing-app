@@ -43,4 +43,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // ADMIN
     Route::get('/admin/users', [UserController::class, 'index']);
     Route::get('/admin/stats', [AdminDashboardController::class, 'stats']);
+    Route::middleware('auth:sanctum')->get('/member/trips', [TripController::class, 'myTrips']);
 });

@@ -24,13 +24,18 @@ class TripController extends Controller {
             'members' => 'nullable|array'
         ] );
 
+        // 1. create trip
         $trip = Trip::create( [
             'name' => $request->name,
             'created_by' => auth()->id(),
             'total_amount' => $request->total_amount ?? 0,
             'trip_date' => $request->trip_date,
-            'members' => $request->members ?? []
         ] );
+
+        // 2. attach members ( THIS IS WHERE IT GOES )
+        if ( $request->members && count( $request->members ) > 0 ) {
+            $trip->members()->attach( $request->members );
+        }
 
         return response()->json( $trip );
     }
@@ -59,8 +64,11 @@ class TripController extends Controller {
             'name' => $request->name,
             'total_amount' => $request->total_amount,
             'trip_date' => $request->trip_date,
-            'members' => is_array( $request->members ) ? $request->members : [] // ✅ FIX
         ] );
+
+        if ( $request->members && is_array( $request->members ) ) {
+            $trip->members()->sync( $request->members );
+        }
 
         return response()->json( [
             'message' => 'Trip updated successfully',
@@ -86,8 +94,10 @@ class TripController extends Controller {
     }
 
     public function myTrips() {
-        return Trip::with( 'creator' )
-        ->where( 'created_by', auth()->id() )
+        $user = auth()->user();
+
+        return $user->trips()
+        ->with( [ 'creator', 'members' ] )
         ->latest()
         ->get();
     }
