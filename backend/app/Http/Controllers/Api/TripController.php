@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Trip;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class TripController extends Controller {
 
@@ -114,5 +115,11 @@ class TripController extends Controller {
         return response()->json( [
             'message' => 'Members added successfully'
         ] );
+    }
+
+    public function getUsers() {
+        return response()->json(
+            User::select( 'id', 'name', 'email' )->get()
+        );
     }
 }

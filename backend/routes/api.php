@@ -35,6 +35,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/my-trips', [TripController::class, 'myTrips']);
     Route::post('/trips/{id}/members', [TripController::class, 'addMembers']);
+    Route::get('/users', [TripController::class, 'getUsers']);
 
     // EXPENSES
     Route::get('/expenses/{trip_id}', [ExpenseController::class, 'index']);
