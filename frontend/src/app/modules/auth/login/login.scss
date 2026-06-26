@@ -1,0 +1,116 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.login-container {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 10% 20%, #dbeafe 0%, transparent 40%),
+    radial-gradient(circle at 80% 30%, #e9d5ff 0%, transparent 45%),
+    radial-gradient(circle at 40% 90%, #bfdbfe 0%, transparent 40%),
+    #f8fafc;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+
+  padding: 20px;          /* reduced from 30px */
+  box-sizing: border-box; /* IMPORTANT */
+  overflow: hidden;       /* removes scroll */
+}
+
+.branding {
+  max-width: 450px;
+}
+
+.branding h1 {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.branding p {
+  font-size: 18px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.login-card {
+  width: 420px;
+  padding: 30px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  border-radius: 16px;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.login-btn {
+  width: 100%;
+  height: 48px;
+}
+
+.link {
+  text-align: center;
+  text-decoration: none;
+  color: #1976d2;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 10px;
+}
+
+@media (max-width: 900px) {
+  .login-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .branding {
+    text-align: center;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 420px;
+  }
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 16px;
+  color: #666;
+}
+
+.register-link a {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+.toggle {
+  cursor: pointer;
+  user-select: none;
+  font-size: 16px;
+
+  margin-right: 8px;
+}

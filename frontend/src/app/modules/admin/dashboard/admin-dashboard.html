@@ -1,0 +1,199 @@
+<div class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>Super Admin</h2>
+
+    <button class="nav-btn active">Dashboard</button>
+    <button class="nav-btn">Users</button>
+    <button class="nav-btn">Trips</button>
+    <button class="nav-btn">Members</button>
+    <button class="nav-btn">Expenses</button>
+    <button class="nav-btn">Subscriptions</button>
+    <button class="nav-btn">Payments</button>
+    <button class="nav-btn">Reports</button>
+    <button class="nav-btn">Audit Logs</button>
+    <button class="nav-btn">Landing Page</button>
+
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <h2>Dashboard Overview</h2>
+      <p>System analytics & control center</p>
+    </div>
+
+    <!-- MAIN STATS -->
+    <div class="stats-grid">
+
+      <div class="card users">
+        <h3>Total Users</h3>
+        <p>120</p>
+      </div>
+
+      <div class="card trips">
+        <h3>Active Trips</h3>
+        <p>35</p>
+      </div>
+
+      <div class="card members">
+        <h3>Total Members</h3>
+        <p>210</p>
+      </div>
+
+      <div class="card revenue">
+        <h3>Total Revenue</h3>
+        <p>₹ 45,000</p>
+      </div>
+
+    </div>
+
+    <!-- SECONDARY STATS -->
+    <div class="stats-grid small">
+
+      <div class="card">
+        <h3>Subscriptions</h3>
+        <p>Active Plans: 3</p>
+      </div>
+
+      <div class="card">
+        <h3>Payments</h3>
+        <p>₹ 28,500</p>
+      </div>
+
+      <div class="card">
+        <h3>Plan Usage</h3>
+        <p>72%</p>
+      </div>
+
+      <div class="card">
+        <h3>Login Activity</h3>
+        <p>1,240 logs</p>
+      </div>
+
+    </div>
+
+    <!-- MANAGEMENT MODULES -->
+
+    <!-- USERS TABLE -->
+    <div class="table-section">
+      <h3>Recent Users</h3>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Role</th>
+          <th>Status</th>
+        </tr>
+
+        <tr *ngFor="let user of users">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>+91 9876543210</td>
+          <td>{{ user.role }}</td>
+          <td><span class="status active">Active</span></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- TRIPS TABLE -->
+    <div class="table-section">
+      <h3>All Trips</h3>
+
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Created By</th>
+          <th>Members</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+
+        <tr *ngFor="let trip of trips">
+          <td>{{ trip.name }}</td>
+          <td>{{ trip.creator?.name }}</td>
+          <td>5</td>
+          <td>{{ trip.trip_date }}</td>
+          <td>₹ {{ trip.total_amount }}</td>
+          <td><span class="status active">Active</span></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- SUBSCRIPTIONS -->
+    <div class="table-section">
+      <h3>Subscription Plans</h3>
+
+      <div class="plans">
+
+        <div class="plan-card">
+          <h4>Starter</h4>
+          <p>₹9 per trip</p>
+          <small>Up to 10 members</small>
+        </div>
+
+        <div class="plan-card">
+          <h4>Growth</h4>
+          <p>₹15 per trip</p>
+          <small>10 - 25 members</small>
+        </div>
+
+        <div class="plan-card">
+          <h4>Enterprise</h4>
+          <p>Custom</p>
+          <small>25+ members</small>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PAYMENTS -->
+    <div class="table-section">
+      <h3>Recent Payments</h3>
+
+      <table>
+        <tr>
+          <th>User</th>
+          <th>Trip</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+
+        <tr>
+          <td>John</td>
+          <td>Goa Trip</td>
+          <td>₹ 15</td>
+          <td><span class="status active">Success</span></td>
+        </tr>
+
+      </table>
+    </div>
+
+    <!-- REPORTS -->
+    <div class="report-grid">
+
+      <div class="report-card">
+        <h4>Total Revenue</h4>
+        <p>₹ 45,000</p>
+      </div>
+
+      <div class="report-card">
+        <h4>Active Trips</h4>
+        <p>35</p>
+      </div>
+
+      <div class="report-card">
+        <h4>Total Members</h4>
+        <p>210</p>
+      </div>
+
+    </div>
+
+  </div>
+</div>

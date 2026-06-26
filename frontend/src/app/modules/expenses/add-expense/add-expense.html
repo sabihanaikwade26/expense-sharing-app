@@ -1,0 +1,104 @@
+<div class="expense-form">
+
+  <h2>Add Expense</h2>
+
+  <form [formGroup]="expenseForm" (ngSubmit)="saveExpense()">
+
+    <!-- Title -->
+    <div class="form-group">
+      <label>Title</label>
+      <input
+        type="text"
+        formControlName="title">
+    </div>
+
+    <!-- Category -->
+    <div class="form-group">
+      <label>Category</label>
+
+      <select formControlName="category">
+        <option value="">Select Category</option>
+
+        <option>Hotel</option>
+        <option>Food</option>
+        <option>Fuel</option>
+        <option>Tickets</option>
+        <option>Shopping</option>
+        <option>Breakfast</option>
+        <option>Local Travel</option>
+        <option>Miscellaneous</option>
+      </select>
+    </div>
+
+    <!-- Paid By -->
+    <div class="form-group">
+      <label>Paid By</label>
+
+      <select formControlName="paid_by">
+        <option value="">Select Member</option>
+
+        <option>Member 1</option>
+        <option>Member 2</option>
+        <option>Member 3</option>
+      </select>
+    </div>
+
+    <!-- Amount -->
+    <div class="form-group">
+      <label>Amount</label>
+
+      <input
+        type="number"
+        formControlName="amount">
+    </div>
+
+    <!-- Expense Date -->
+    <div class="form-group">
+      <label>Expense Date</label>
+
+      <input
+        type="date"
+        formControlName="expense_date">
+    </div>
+
+    <!-- Split Type -->
+    <div class="form-group">
+      <label>Split Type</label>
+
+      <select formControlName="split_type">
+        <option value="">Select Split Type</option>
+
+        <option>Equal</option>
+        <option>Custom</option>
+      </select>
+    </div>
+
+    <!-- Bill Attachment -->
+    <div class="form-group">
+      <label>Bill Attachment</label>
+
+      <input
+        type="file">
+    </div>
+
+    <!-- Notes -->
+    <div class="form-group">
+      <label>Notes</label>
+
+      <textarea
+        rows="4"
+        formControlName="notes">
+      </textarea>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="expenseForm.invalid">
+
+      Save Expense
+
+    </button>
+
+  </form>
+
+</div>

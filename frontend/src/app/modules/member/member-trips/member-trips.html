@@ -1,0 +1,169 @@
+<div class="dashboard">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h2>Welcome, Member</h2>
+      <p>Manage your trips and expenses</p>
+    </div>
+
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+
+    <div class="card">
+      <h3>Total Trips</h3>
+      <p>2</p>
+    </div>
+
+    <div class="card">
+      <h3>Active Trips</h3>
+      <p>1</p>
+    </div>
+
+    <div class="card">
+      <h3>Completed Trips</h3>
+      <p>1</p>
+    </div>
+
+    <div class="card highlight">
+      <h3>Total Expenses</h3>
+      <p>₹ 5,450</p>
+    </div>
+
+  </div>
+
+  <!-- QUICK SUMMARY -->
+  <div class="summary">
+
+    <div class="summary-card owe">
+      <h4>You Owe</h4>
+      <p>₹ 1,200</p>
+    </div>
+
+    <div class="summary-card get">
+      <h4>You Get</h4>
+      <p>₹ 2,500</p>
+    </div>
+
+    <div class="summary-card net">
+      <h4>Net Balance</h4>
+      <p>₹ 1,300</p>
+    </div>
+
+  </div>
+
+  <!-- TRIPS -->
+  <div class="section">
+
+    <div class="section-header">
+      <h3>Your Trips</h3>
+    </div>
+
+    <div class="empty" *ngIf="false">
+      No trips found. Create your first trip 🚀
+    </div>
+
+    <!-- TRIP CARD -->
+    <div class="trip-card">
+
+      <div class="trip-top">
+        <h4>Goa Trip 2026</h4>
+        <span class="badge active">Active</span>
+      </div>
+
+      <p class="muted">Start Date: 21 June 2026</p>
+      <p class="muted">Members: 5</p>
+
+      <div class="trip-actions">
+        <button>View Expenses</button>
+        <button class="secondary">Settle</button>
+      </div>
+
+      <!-- EXPENSE PREVIEW -->
+      <div class="expense-box">
+
+        <h5>Recent Expenses</h5>
+
+        <div class="expense-item">
+          <span>Hotel Booking</span>
+          <span>₹ 2,000</span>
+        </div>
+
+        <div class="expense-item">
+          <span>Food</span>
+          <span>₹ 800</span>
+        </div>
+
+      </div>
+
+      <!-- ADD EXPENSE -->
+      <div class="add-expense">
+
+        <h5>Add Expense</h5>
+
+        <input placeholder="Expense title" />
+        <input placeholder="Amount" />
+
+        <select>
+          <option>Paid By Me</option>
+          <option>Paid by Other</option>
+        </select>
+
+        <button class="primary">Add Expense</button>
+
+      </div>
+
+      <!-- SETTLEMENT -->
+      <div class="settlement">
+
+        <h5>Settlement Summary</h5>
+
+        <div class="settle-row">
+          <span>Amit owes you</span>
+          <span class="green">₹ 500</span>
+        </div>
+
+        <div class="settle-row">
+          <span>You owe Priya</span>
+          <span class="red">₹ 300</span>
+        </div>
+
+      </div>
+
+      <!-- WHO PAID WHOM -->
+      <div class="who-paid">
+
+        <h5>Who Paid Whom</h5>
+
+        <p>✔ You paid ₹ 2000 for Hotel</p>
+        <p>✔ Priya paid ₹ 800 for Food</p>
+
+      </div>
+
+      <!-- BILL UPLOAD -->
+      <div class="upload">
+
+        <h5>Upload Bill</h5>
+
+        <input type="file" />
+
+      </div>
+
+      <!-- COMMENTS -->
+      <div class="comments">
+
+        <h5>Comments</h5>
+
+        <textarea placeholder="Write a comment..."></textarea>
+
+        <button class="secondary">Post Comment</button>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,37 @@
+<div class="login-container">
+  <div class="branding">
+    <h1>Expense Sharing</h1>
+
+    <p>Manage trips, track expenses, split costs and settle balances effortlessly.</p>
+  </div>
+
+  <mat-card class="login-card">
+    <h2>Welcome Back</h2>
+
+    <p class="subtitle">Sign in to continue</p>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="email" type="email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+
+      <input matInput [(ngModel)]="password" [type]="showPassword ? 'text' : 'password'" />
+
+      <span matSuffix class="toggle" (click)="showPassword = !showPassword"> 👁 </span>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="login-btn" (click)="onLogin()">Login</button>
+
+    <div class="forgot-link">
+      <a routerLink="/forgot-password"> Forgot Password? </a>
+    </div>
+
+    <div class="register-link">
+      Don't have an account?
+      <a routerLink="/register">Register</a>
+    </div>
+  </mat-card>
+</div>

@@ -1,0 +1,130 @@
+<div class="screen">
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <div class="app-title">Expense Trips</div>
+      <div class="subtitle">Manage your group expenses</div>
+    </div>
+
+    <div class="profile-wrapper">
+      <div class="profile-circle" (click)="toggleDropdown()">S</div>
+
+      <div class="dropdown" *ngIf="showDropdown">
+        <div class="dropdown-item" (click)="onLogout()">Logout</div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="trips$ | async as trips">
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-label">Trips</div>
+        <div class="stat-value">
+          {{ trips.length }}
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">You owe</div>
+        <div class="stat-value negative">₹800</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">You get</div>
+        <div class="stat-value positive">₹1200</div>
+      </div>
+    </div>
+
+    <!-- Section -->
+    <div class="section-title">Recent Trips</div>
+
+    <!-- Trips -->
+    <div class="trip-list">
+      <div class="trip-item" *ngFor="let trip of trips" (click)="openTrip(trip.id)">
+        <div class="trip-left">
+          <div class="trip-name">{{ trip.name }}</div>
+
+          <div class="trip-meta">
+            {{ (trip.members || []).length }} members •
+            {{ trip.trip_date ? (trip.trip_date | date: 'dd MMM') : '-' }}
+          </div>
+        </div>
+
+        <div class="trip-right">
+          <div class="amount">₹{{ trip.total_amount || 0 }}</div>
+
+          <div
+            class="status"
+            [ngClass]="{
+              active: trip.status === 'active',
+              settled: trip.status === 'settled',
+              pending: trip.status === 'pending',
+            }"
+          >
+            {{ trip.status || 'active' }}
+          </div>
+
+          <div class="actions">
+            <button class="edit-btn" (click)="editTrip(trip); $event.stopPropagation()">
+              ✏️ Edit
+            </button>
+
+            <button class="delete-btn" (click)="deleteTrip(trip.id); $event.stopPropagation()">
+              🗑 Delete
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="empty" *ngIf="trips.length === 0">No trips found. Create your first trip 🚀</div>
+    </div>
+  </div>
+
+  <!-- Floating Button -->
+  <button class="fab" (click)="openSheet()">+</button>
+
+  <!-- Overlay -->
+  <div class="overlay" *ngIf="showSheet" (click)="closeSheet()"></div>
+
+  <!-- Bottom Sheet -->
+  <div class="bottom-sheet" [class.active]="showSheet">
+    <div class="sheet-handle"></div>
+
+    <div class="sheet-title">
+      {{ isEditMode ? 'Update Trip' : 'Create New Trip' }}
+    </div>
+
+    <input placeholder="Trip Name" [(ngModel)]="tripName" />
+    <input type="number" placeholder="Total Budget" [(ngModel)]="totalBudget" />
+    <input type="date" [(ngModel)]="tripDate" />
+
+    <!-- Members -->
+    <div class="members-section">
+      <div class="members-header">Members</div>
+
+      <div
+        *ngFor="let member of selectedMembers; let i = index; trackBy: trackByIndex"
+        class="member-row"
+      >
+        <select class="member-select" [(ngModel)]="selectedMembers[i]">
+          <option [ngValue]="null">Select Member</option>
+
+          <option *ngFor="let user of availableUsers" [ngValue]="user.id">
+            {{ user.name }}
+          </option>
+        </select>
+
+        <button class="remove-btn" (click)="removeMember(i)" *ngIf="selectedMembers.length > 1">
+          ✕
+        </button>
+      </div>
+
+      <button class="add-member-btn" (click)="addMember()">+ Add Member</button>
+    </div>
+
+    <button class="create-btn" (click)="submitTrip()">
+      {{ isEditMode ? 'Update Trip' : 'Create Trip' }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,124 @@
+<div class="trip-container">
+  <!-- HEADER -->
+  <div class="trip-header">
+    <h1>{{ trip?.name }}</h1>
+
+    <p>Budget: ₹{{ trip?.total_amount }}</p>
+
+    <p>Date: {{ trip?.trip_date | date: 'dd MMM yyyy' }}</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <span>Total Budget</span>
+      <h3>₹{{ trip?.total_amount || 0 }}</h3>
+    </div>
+
+    <div class="stat-card">
+      <span>Members</span>
+      <h3>{{ members.length }}</h3>
+    </div>
+
+    <div class="stat-card">
+      <span>Spent</span>
+      <h3>₹{{ totalExpenses }}</h3>
+    </div>
+
+    <div class="stat-card">
+      <span>Remaining</span>
+      <h3>₹{{ remainingBudget }}</h3>
+    </div>
+  </div>
+
+  <!-- MEMBERS -->
+  <div class="section">
+    <div class="section-title">Members</div>
+
+    <div class="members-list">
+      <div class="member-chip" *ngFor="let m of members">
+        {{ m.name }}
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPENSES -->
+  <div class="section">
+    <div class="section-title">Expenses</div>
+
+    <div *ngIf="expenses.length === 0" class="empty">No expenses added yet</div>
+
+    <div class="expense-card" *ngFor="let exp of expenses">
+      <div>
+        <div class="expense-title">{{ exp.title }}</div>
+        <div class="expense-meta">Paid by {{ exp.paid_by_user?.name || exp.paid_by }}</div>
+      </div>
+
+      <div class="expense-amount">₹{{ exp.amount }}</div>
+    </div>
+  </div>
+
+  <!-- PAYMENT SUMMARY -->
+  <div class="section">
+    <div class="section-title">Payment Summary</div>
+
+    <div *ngFor="let item of paymentSummary">
+      <div>{{ item.name }} paid ₹{{ item.amount }}</div>
+    </div>
+  </div>
+
+  <!-- FLOATING BUTTON -->
+  <!-- <button class="fab" (click)="openExpenseSheet()">+</button> -->
+
+  <!-- 🔥 OVERLAY -->
+  <div class="overlay" *ngIf="showExpenseSheet" (click)="closeExpenseSheet()"></div>
+
+  <!-- 🔥 BOTTOM SHEET -->
+  <div class="bottom-sheet" [class.active]="showExpenseSheet">
+    <div class="sheet-title">Add Expense</div>
+
+    <input placeholder="Expense Title" [(ngModel)]="expenseTitle" />
+
+    <input placeholder="Amount" [(ngModel)]="expenseAmount" />
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Paid By</mat-label>
+
+      <mat-select [(ngModel)]="paidBy" panelClass="paid-by-panel">
+        <mat-option value="">Select Paid By</mat-option>
+
+        <div
+          *ngFor="let m of members"
+          class="member-row"
+          (click)="toggleSplitMember(m.id)"
+          [class.selected]="splitMembers.includes(m.id)"
+        >
+          <div class="tick">
+            <span *ngIf="splitMembers.includes(m.id)">✔</span>
+          </div>
+
+          <span>{{ m.name }}</span>
+        </div>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- SPLIT -->
+    <div class="members-section">
+      <div class="members-header">Split Between</div>
+
+      <div
+        *ngFor="let m of members"
+        class="member-row"
+        (click)="toggleSplitMember(m)"
+        [class.selected]="splitMembers.includes(m)"
+      >
+        <div class="tick">
+          <span *ngIf="splitMembers.includes(m.id)">✔</span>
+        </div>
+
+        <span>{{ m }}</span>
+      </div>
+    </div>
+
+    <button class="create-btn" (click)="addExpense()">Add Expense</button>
+  </div>
+</div>

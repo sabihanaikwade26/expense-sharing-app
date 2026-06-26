@@ -1,0 +1,63 @@
+<div class="page-container">
+  <div class="page-header">
+    <h2>Expense Management</h2>
+
+    <button class="add-btn" routerLink="/expenses/add">+ Add Expense</button>
+  </div>
+
+  <div class="summary-cards">
+    <div class="summary-card">
+      <h4>Total Expenses</h4>
+      <h2>₹6200</h2>
+    </div>
+
+    <div class="summary-card">
+      <h4>Total Members</h4>
+      <h2>2</h2>
+    </div>
+
+    <div class="summary-card">
+      <h4>Pending Settlement</h4>
+      <h2>₹1900</h2>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Paid By</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let expense of expenses">
+          <td>{{ expense.title }}</td>
+
+          <td>
+            <span class="category-badge">
+              {{ expense.category }}
+            </span>
+          </td>
+
+          <td>₹{{ expense.amount }}</td>
+
+          <td>{{ expense.expense_date }}</td>
+
+          <td>{{ expense.paid_by }}</td>
+
+          <td>
+            <button class="edit-btn" [routerLink]="['/expenses/edit', expense.id]">Edit</button>
+
+            <button class="delete-btn" (click)="deleteExpense(expense.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
