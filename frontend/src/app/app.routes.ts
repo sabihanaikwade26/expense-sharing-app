@@ -75,6 +75,81 @@ export const routes: Routes = [
   },
 
   {
+    path: 'admin/users',
+    canActivate: [authGuard, roleGuard],
+    data: { role: 'admin' },
+    loadComponent: () =>
+      import('./modules/admin/users/admin-users.component').then((m) => m.AdminUsersComponent),
+  },
+
+  {
+    path: 'admin/members',
+    canActivate: [authGuard, roleGuard],
+    data: { role: 'admin' },
+    loadComponent: () =>
+      import('./modules/admin/members/admin-members.component').then(
+        (m) => m.AdminMembersComponent,
+      ),
+  },
+
+  {
+    path: 'admin/expenses',
+    component: ExpenseListComponent,
+    canActivate: [authGuard, roleGuard],
+    data: { role: 'admin' },
+  },
+
+  {
+    path: 'admin/subscriptions',
+    canActivate: [authGuard, roleGuard],
+    data: { role: 'admin' },
+    loadComponent: () =>
+      import('./modules/admin/subscriptions/admin-subscriptions.component').then(
+        (m) => m.AdminSubscriptionsComponent,
+      ),
+  },
+
+  {
+    path: 'admin/payments',
+    canActivate: [authGuard, roleGuard],
+    data: { role: 'admin' },
+    loadComponent: () =>
+      import('./modules/admin/payments/admin-payments.component').then(
+        (m) => m.AdminPaymentsComponent,
+      ),
+  },
+
+  {
+    path: 'admin/reports',
+    canActivate: [authGuard, roleGuard],
+    data: { role: 'admin' },
+    loadComponent: () =>
+      import('./modules/admin/reports/admin-reports.component').then(
+        (m) => m.AdminReportsComponent,
+      ),
+  },
+
+  {
+    path: 'admin/audit-logs',
+    canActivate: [authGuard, roleGuard],
+    data: { role: 'admin' },
+    loadComponent: () =>
+      import('./modules/admin/audit-logs/admin-audit-logs.component').then(
+        (m) => m.AdminAuditLogsComponent,
+      ),
+  },
+
+  {
+    path: 'admin/landing-page',
+    canActivate: [authGuard, roleGuard],
+    data: { role: 'admin' },
+    loadComponent: () =>
+      import('./modules/admin/landing-page/admin-landing-page.component').then(
+        (m) => m.AdminLandingPageComponent,
+      ),
+  },
+
+  {
     path: 'member',
     children: [
       {

@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { AdminDashboardService } from '../../../services/admin/admin-dashboard.service';
 import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
-import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    RouterModule
+  ],
   templateUrl: './admin-dashboard.html',
   styleUrls: ['./admin-dashboard.scss'],
 })
@@ -85,7 +86,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   goToExpenses() {
-    this.router.navigate(['/admin/expenses']);
+    this.router.navigate(['/expenses']);
   }
 
   logout() {

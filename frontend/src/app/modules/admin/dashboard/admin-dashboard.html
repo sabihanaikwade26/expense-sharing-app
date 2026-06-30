@@ -1,26 +1,43 @@
 <div class="admin-layout">
-
   <!-- SIDEBAR -->
   <div class="sidebar">
     <h2>Super Admin</h2>
 
-    <button class="nav-btn active">Dashboard</button>
-    <button class="nav-btn">Users</button>
-    <button class="nav-btn">Trips</button>
-    <button class="nav-btn">Members</button>
-    <button class="nav-btn">Expenses</button>
-    <button class="nav-btn">Subscriptions</button>
-    <button class="nav-btn">Payments</button>
-    <button class="nav-btn">Reports</button>
-    <button class="nav-btn">Audit Logs</button>
-    <button class="nav-btn">Landing Page</button>
+    <button
+      class="nav-btn"
+      routerLink="/admin/dashboard"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Dashboard
+    </button>
+    <button class="nav-btn" routerLink="/admin/users" routerLinkActive="active">Users</button>
+
+    <button class="nav-btn" routerLink="/admin/members" routerLinkActive="active">Members</button>
+
+    <button class="nav-btn" routerLink="/admin/expenses" routerLinkActive="active">Expenses</button>
+
+    <button class="nav-btn" routerLink="/admin/subscriptions" routerLinkActive="active">
+      Subscriptions
+    </button>
+
+    <button class="nav-btn" routerLink="/admin/payments" routerLinkActive="active">Payments</button>
+
+    <button class="nav-btn" routerLink="/admin/reports" routerLinkActive="active">Reports</button>
+
+    <button class="nav-btn" routerLink="/admin/audit-logs" routerLinkActive="active">
+      Audit Logs
+    </button>
+
+    <button class="nav-btn" routerLink="/admin/landing-page" routerLinkActive="active">
+      Landing Page
+    </button>
 
     <button class="logout-btn" (click)="logout()">Logout</button>
   </div>
 
   <!-- MAIN -->
   <div class="main">
-
     <!-- TOP BAR -->
     <div class="topbar">
       <h2>Dashboard Overview</h2>
@@ -29,7 +46,6 @@
 
     <!-- MAIN STATS -->
     <div class="stats-grid">
-
       <div class="card users">
         <h3>Total Users</h3>
         <p>120</p>
@@ -49,12 +65,10 @@
         <h3>Total Revenue</h3>
         <p>₹ 45,000</p>
       </div>
-
     </div>
 
     <!-- SECONDARY STATS -->
     <div class="stats-grid small">
-
       <div class="card">
         <h3>Subscriptions</h3>
         <p>Active Plans: 3</p>
@@ -74,7 +88,6 @@
         <h3>Login Activity</h3>
         <p>1,240 logs</p>
       </div>
-
     </div>
 
     <!-- MANAGEMENT MODULES -->
@@ -131,7 +144,6 @@
       <h3>Subscription Plans</h3>
 
       <div class="plans">
-
         <div class="plan-card">
           <h4>Starter</h4>
           <p>₹9 per trip</p>
@@ -149,7 +161,6 @@
           <p>Custom</p>
           <small>25+ members</small>
         </div>
-
       </div>
     </div>
 
@@ -171,13 +182,11 @@
           <td>₹ 15</td>
           <td><span class="status active">Success</span></td>
         </tr>
-
       </table>
     </div>
 
     <!-- REPORTS -->
     <div class="report-grid">
-
       <div class="report-card">
         <h4>Total Revenue</h4>
         <p>₹ 45,000</p>
@@ -192,8 +201,6 @@
         <h4>Total Members</h4>
         <p>210</p>
       </div>
-
     </div>
-
   </div>
 </div>

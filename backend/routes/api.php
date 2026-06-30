@@ -34,6 +34,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/trips/{id}', [TripController::class, 'destroy']);
 
     Route::get('/my-trips', [TripController::class, 'myTrips']);
+    Route::get('/member/trips', [TripController::class, 'myTrips']);
+
     Route::post('/trips/{id}/members', [TripController::class, 'addMembers']);
     Route::get('/users', [TripController::class, 'getUsers']);
 
@@ -41,8 +43,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/expenses/{trip_id}', [ExpenseController::class, 'index']);
     Route::post('/expenses', [ExpenseController::class, 'store']);
 
-    // ADMIN
-    Route::get('/admin/users', [UserController::class, 'index']);
+    // ADMIN DASHBOARD
     Route::get('/admin/stats', [AdminDashboardController::class, 'stats']);
-    Route::middleware('auth:sanctum')->get('/member/trips', [TripController::class, 'myTrips']);
+
+    // ADMIN USERS
+    Route::get('/admin/users', [UserController::class, 'index']);
+    Route::put('/admin/users/{id}/status', [UserController::class, 'toggleStatus']);
+    Route::delete('/admin/users/{id}', [UserController::class, 'destroy']);
+
 });
